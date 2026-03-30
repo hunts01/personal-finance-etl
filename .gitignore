@@ -1,0 +1,43 @@
+# Real financial data — never commit this
+data/real/
+*.csv
+!data/sample_bank.csv
+!data/sample_card.csv
+
+# DuckDB database file
+*.duckdb
+*.duckdb.wal
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+
+# Jupyter notebooks — outputs and checkpoints
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# dbt
+transform/target/
+transform/dbt_packages/
+transform/logs/
+transform/.user.yml
+
+# Logs
+logs/
+*.log
+
+# Power BI local settings
+*.pbix.lock
+
+# OS files
+.DS_Store
+Thumbs.db
