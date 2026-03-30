@@ -50,7 +50,7 @@ data/
   - sample_card.csv
 
 extract/
-  - load_csv.py              # reads CSVs, standardizes schema, loads to <> database
+  - load_csv.py              # reads CSVs, standardizes schema, loads to DuckDB
   - validate.py              # row count checks, null checks before load
 
 transform/                   # dbt project root
@@ -161,7 +161,7 @@ A GitHub Actions workflow (.github/workflows/dbt_test.yml) runs dbt test automat
 
 Python + Pandas | Extract and load CSVs
 
-<> database | Local analytical database
+DuckDB | Local analytical database
 
 dbt | SQL transformations and testing
 
