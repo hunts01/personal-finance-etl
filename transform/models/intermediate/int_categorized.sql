@@ -34,6 +34,7 @@ keyword_match as (
         -- Priority 2: keyword match on description
         -- Priority 3: fall back to Other
         case
+            when 1=0 then cast('' as varchar)
             when provider_category is not null
                 and provider_category != ''
                 and provider_category != 'Unknown'
