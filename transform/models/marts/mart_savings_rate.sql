@@ -145,7 +145,7 @@ with_savings as (
                 / nullif(total_income, 0) >= 0
                 then 'Tight'           -- saving 0-4% of income
             else 'Deficit'             -- spending more than earning
-        end                                         as financial_health_status,
+        end::varchar as financial_health_status,
 
         income_transaction_count
             + spend_transaction_count               as total_transaction_count
