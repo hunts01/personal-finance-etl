@@ -175,14 +175,14 @@ def validate(df: pd.DataFrame, source_name: str) -> bool:
 # ---------------------------------------------------------------------------
 
 def load_to_duckdb(df: pd.DataFrame, table_name: str, conn: duckdb.DuckDBPyConnection) -> None:
-    """Write a DataFrame to a DuckDB table, replacing it if FULL_REFRESH is set."""
+
+    full_table_name = f"raw.{table_name}"
 
     if FULL_REFRESH:
-        conn.execute(f"DROP TABLE IF EXISTS {table_name}")
-        logger.debug(f"Dropped table '{table_name}' (FULL_REFRESH=true)")
+        conn.execute(f"DROP TABLE IF EXISTS {full_table_name}")
 
     conn.execute(f"""
-        CREATE TABLE IF NOT EXISTS {table_name} (
+        CREATE TABLE IF NOT EXISTS {full_table_name} (
             transaction_id   VARCHAR,
             date             TIMESTAMP,
             description      VARCHAR,
@@ -192,25 +192,21 @@ def load_to_duckdb(df: pd.DataFrame, table_name: str, conn: duckdb.DuckDBPyConne
         )
     """)
 
-    existing = conn.execute(f"SELECT COUNT(*) FROM {table_name}").fetchone()[0]
+    existing = conn.execute(f"SELECT COUNT(*) FROM {full_table_name}").fetchone()[0]
 
     if existing > 0 and not FULL_REFRESH:
         existing_ids = conn.execute(
-            f"SELECT transaction_id FROM {table_name}"
+            f"SELECT transaction_id FROM {full_table_name}"
         ).df()["transaction_id"].tolist()
 
         new_rows = df[~df["transaction_id"].isin(existing_ids)]
-        logger.info(
-            f"[{table_name}] {len(new_rows)} new row(s) to insert "
-            f"({len(df) - len(new_rows)} already exist — skipping)"
-        )
         df = new_rows
 
     if len(df) > 0:
-        conn.execute(f"INSERT INTO {table_name} SELECT * FROM df")
-        logger.info(f"[{table_name}] Loaded {len(df)} row(s)")
+        conn.execute(f"INSERT INTO {full_table_name} SELECT * FROM df")
+        logger.info(f"[{full_table_name}] Loaded {len(df)} row(s)")
     else:
-        logger.info(f"[{table_name}] Nothing new to load")
+        logger.info(f"[{full_table_name}] Nothing new to load")
 
 
 # ---------------------------------------------------------------------------
