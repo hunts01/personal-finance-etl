@@ -1,0 +1,100 @@
+name: personal_finance
+version: "1.0.0"
+config-version: 2
+
+profile: personal_finance
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# ---------------------------------------------------------------------------
+# Global model defaults
+# ---------------------------------------------------------------------------
+
+models:
+  personal_finance:
+
+    # ── Staging ─────────────────────────────────────────────────────────────
+    # Views only — no storage cost, always reflects the latest raw data.
+    # Prefix enforced so staging models are easy to identify in DuckDB.
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ["staging"]
+
+    # ── Intermediate ─────────────────────────────────────────────────────────
+    # Ephemeral by default — they are inlined into downstream queries
+    # rather than written to the database, keeping the schema clean.
+    intermediate:
+      +materialized: ephemeral
+      +tags: ["intermediate"]
+
+    # ── Marts ────────────────────────────────────────────────────────────────
+    # Tables — Power BI queries these directly so they must be persisted.
+    # Partitioned by month implicitly through the SQL; no dbt partitioning needed
+    # for a local DuckDB setup.
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags: ["marts"]
+
+# ---------------------------------------------------------------------------
+# Seeds
+# ---------------------------------------------------------------------------
+
+seeds:
+  personal_finance:
+    # category_rules.csv — keyword-to-category mapping used by int_categorized
+    +schema: seeds
+    +column_types:
+      keyword: varchar
+      category: varchar
+
+# ---------------------------------------------------------------------------
+# Snapshots
+# ---------------------------------------------------------------------------
+# Not used in this project but included for completeness.
+
+snapshots:
+  personal_finance:
+    +target_schema: snapshots
+    +strategy: timestamp
+    +updated_at: updated_at
+
+# ---------------------------------------------------------------------------
+# Variables
+# ---------------------------------------------------------------------------
+# Override at runtime: dbt run --vars '{"start_date": "2024-01-01"}'
+
+vars:
+  # Earliest date to include in mart models — useful for filtering test data
+  start_date: "2024-01-01"
+
+  # Currency symbol displayed in dbt docs descriptions
+  currency: "USD"
+
+  # Categories used by int_categorized.sql
+  # Add new entries here and in models/seeds/category_rules.csv
+  spend_categories:
+    - Groceries
+    - Dining
+    - Transport
+    - Subscriptions
+    - Utilities
+    - Insurance
+    - Health
+    - Shopping
+    - Travel
+    - Home Improvement
+    - Fees
+    - Other
