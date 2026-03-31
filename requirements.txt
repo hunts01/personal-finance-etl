@@ -1,13 +1,13 @@
 # Core pipeline
 pandas==2.2.2
-duckdb==0.10.3
+duckdb==0.10.2
 
 # dbt
 dbt-core==1.8.3
 dbt-duckdb==1.8.1
 
 # Data validation
-great-expectations==0.18.19
+great-expectations==0.18.15
 
 # Notebook support
 jupyter==1.0.0
