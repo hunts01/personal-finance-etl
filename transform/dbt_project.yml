@@ -33,10 +33,9 @@ models:
       +tags: ["staging"]
 
     # ── Intermediate ─────────────────────────────────────────────────────────
-    # Ephemeral by default — they are inlined into downstream queries
-    # rather than written to the database, keeping the schema clean.
     intermediate:
-      +materialized: ephemeral
+      +materialized: view
+      +schema: staging
       +tags: ["intermediate"]
 
     # ── Marts ────────────────────────────────────────────────────────────────
