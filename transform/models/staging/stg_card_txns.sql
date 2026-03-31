@@ -36,14 +36,13 @@ renamed as (
         -- with stg_bank_txns so the union in int_all_transactions works cleanly.
         cast("date" as date) as transaction_date,
 
-        -- Description — card exports use merchant_name
-        upper(trim(merchant_name)) as description,
+        upper(trim(description)) as description,
 
         -- Merchant category as provided by the card network.
         -- May be null for some transactions (e.g. fees, payments).
         -- int_categorized will use this as a first-pass category before
         -- falling back to keyword matching on the description.
-        initcap(trim(merchant_category)) as provider_category,
+        null as provider_category,
 
         -- Amount
         -- Card CSVs store debits (purchases) as positive numbers and
