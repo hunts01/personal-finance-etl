@@ -50,12 +50,12 @@ renamed as (
         -- convention to the bank CSV. We flip the sign here so that
         -- purchases are negative and payments are positive, matching the
         -- bank convention and making downstream aggregations consistent.
-        cast(amount as decimal(12, 2)) * -1 as amount,
+        cast(amount as double) * -1 as amount,
         case
-            when cast(amount as decimal(12, 2)) > 0 then true
+            when cast(amount as double) > 0 then true
             else false
         end as is_debit,
-        abs(cast(amount as decimal(12, 2))) as absolute_amount,
+        abs(cast(amount as double)) as absolute_amount,
 
         -- Transaction type — normalise to lower case
         lower(trim(transaction_type)) as transaction_type,
