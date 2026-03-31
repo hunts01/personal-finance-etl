@@ -3,13 +3,13 @@ personal_finance:
   outputs:
     dev:
       type: duckdb
-      path: "{{ env_var('DUCKDB_PATH', './data/finance.duckdb') }}"
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
       threads: 4
     ci:
       type: duckdb
-      path: "{{ env_var('DUCKDB_PATH', './data/finance.duckdb') }}"
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
       threads: 2
     prod:
       type: duckdb
-      path: "{{ env_var('DUCKDB_PATH', './data/finance.duckdb') }}"
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
       threads: 4
