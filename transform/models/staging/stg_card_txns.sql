@@ -34,7 +34,7 @@ renamed as (
         -- Card exports use post_date (settlement date) rather than
         -- transaction date. We rename to transaction_date for consistency
         -- with stg_bank_txns so the union in int_all_transactions works cleanly.
-        cast(post_date as date) as transaction_date,
+        cast("date" as date) as transaction_date,
 
         -- Description — card exports use merchant_name
         upper(trim(merchant_name)) as description,
