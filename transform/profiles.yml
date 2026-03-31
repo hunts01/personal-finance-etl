@@ -4,15 +4,20 @@ personal_finance:
 
     dev:
       type: duckdb
-      path: "md:personal_finance?motherduck_token={{ env_var('MOTHERDUCK_TOKEN') }}"
+      path: "md:personal_finance"
       threads: 4
+      settings:
+        motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
 
     ci:
       type: duckdb
-      path: "md:personal_finance?motherduck_token={{ env_var('MOTHERDUCK_TOKEN') }}"
+      path: "md:personal_finance"
       threads: 2
+      settings:
+        motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
 
     prod:
-      type: duckdb
-      path: "md:personal_finance?motherduck_token={{ env_var('MOTHERDUCK_TOKEN') }}"
+      path: "md:personal_finance"
       threads: 4
+      settings:
+        motherduck_token: "{{ env_var('MOTHERDUCK_TOKEN') }}"
