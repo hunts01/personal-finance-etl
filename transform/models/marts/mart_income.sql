@@ -67,7 +67,7 @@ income_typed as (
 
             else 'Other income'
 
-        end                                         as income_type
+        end::varchar as income_type
 
     from categorized
 
