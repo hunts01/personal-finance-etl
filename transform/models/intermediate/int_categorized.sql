@@ -160,7 +160,7 @@ keyword_match as (
 
             else 'Other'
 
-        end                                             as category
+        end::varchar as category
 
     from transactions
 
