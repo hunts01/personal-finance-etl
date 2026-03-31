@@ -30,7 +30,7 @@ with bank as (
         is_debit,
         absolute_amount,
         transaction_type,
-        null                as provider_category,   -- bank CSV has no category column
+        null::varchar as provider_category,   -- bank CSV has no category column
         source,
         _loaded_at
     from {{ ref('stg_bank_txns') }}
@@ -47,7 +47,7 @@ card as (
         is_debit,
         absolute_amount,
         transaction_type,
-        provider_category,
+        provider_category::varchar,
         source,
         _loaded_at
     from {{ ref('stg_card_txns') }}
