@@ -44,7 +44,7 @@ renamed as (
 
         -- Running balance as reported by the bank — useful for reconciliation
         -- but not used in mart aggregations
-        cast(balance as decimal(12, 2))             as reported_balance,
+        --cast(balance as decimal(12, 2))             as reported_balance,
 
         -- Source identifier — carried through to marts for lineage
         'bank'                                      as source,
