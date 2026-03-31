@@ -12,7 +12,7 @@
 -- This model is materialised as ephemeral — it is inlined into downstream
 -- queries and does not create a table or view in DuckDB. This keeps the
 -- database schema clean while still giving downstream models a clean
--- named reference via {{ ref('int_all_transactions') }}.
+-- named reference via int_all_transactions model.
 --
 -- This model does NOT:
 --   - Categorise transactions (that happens in int_categorized)
