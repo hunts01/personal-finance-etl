@@ -38,15 +38,10 @@ Bank CSV + Card CSV
 personal-finance-etl/
 
 README.md
-
 requirements.txt
-
 setup.ps1
-
 run_pipeline.ps1
-
 .env.example
-
 .gitignore
 
 data/
