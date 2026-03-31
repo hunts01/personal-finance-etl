@@ -46,7 +46,7 @@ income_typed as (
         case
             when description ilike '%PAYROLL%'
                 or description ilike '%DIRECT DEPOSIT%'
-                then 'Payroll'
+                then cast('Payroll' as varchar)
 
             when description ilike '%INTEREST%'
                 then 'Interest'
