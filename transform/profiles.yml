@@ -1,0 +1,29 @@
+personal_finance:
+  target: dev
+  outputs:
+
+    # ── Development ──────────────────────────────────────────────────────────
+    # Used when running locally. Points to your local DuckDB file.
+    # Run with: dbt run --target dev
+    dev:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
+      threads: 4
+
+    # ── CI ───────────────────────────────────────────────────────────────────
+    # Used by GitHub Actions. Points to a temporary in-memory DuckDB instance
+    # so no file path configuration is needed on the runner.
+    # Run with: dbt run --target ci
+    ci:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
+      threads: 2
+
+    # ── Production ───────────────────────────────────────────────────────────
+    # Placeholder for when you graduate this project to a cloud warehouse.
+    # Swap type to snowflake, bigquery, etc. and fill in credentials.
+    # Run with: dbt run --target prod
+    prod:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', '../data/finance.duckdb') }}"
+      threads: 4
