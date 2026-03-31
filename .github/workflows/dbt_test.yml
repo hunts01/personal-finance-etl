@@ -1,1 +1,50 @@
+name: dbt tests
 
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create .env file from GitHub secrets
+        run: |
+          echo "DUCKDB_PATH=./data/finance.duckdb" >> .env
+          echo "RAW_DATA_DIR=./data" >> .env
+          echo "DBT_PROFILE=personal_finance" >> .env
+          echo "DBT_TARGET=dev" >> .env
+          echo "LOG_LEVEL=INFO" >> .env
+
+      - name: Load sample data into DuckDB
+        run: python extract/load_csv.py
+
+      - name: Run dbt models
+        working-directory: transform
+        run: dbt run --profiles-dir . --target dev
+
+      - name: Run dbt tests
+        working-directory: transform
+        run: dbt test --profiles-dir . --target dev
+
+      - name: Upload dbt logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-logs
+          path: transform/logs/
+          retention-days: 7
