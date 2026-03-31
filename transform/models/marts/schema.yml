@@ -1,0 +1,11 @@
+models:
+  - name: mart_spending_stats
+    description: Descriptive statistics on monthly spend per category
+    columns:
+      - name: category
+        tests:
+          - not_null
+          - unique
+      - name: mean_monthly_spend
+        tests:
+          - not_null
