@@ -23,7 +23,7 @@ renamed as (
         -- Identity
         transaction_id as transaction_id,
         -- Dates
-        cast(date as date) as transaction_date,
+        cast("date" as date) as transaction_date,
         -- Description — trim whitespace, normalise to upper case
         upper(trim(description)) as description,
 
