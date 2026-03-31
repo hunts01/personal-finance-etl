@@ -38,7 +38,7 @@ keyword_match as (
             when provider_category is not null
                 and provider_category != ''
                 and provider_category != 'Unknown'
-                then provider_category
+                then cast(provider_category as varchar)
 
             -- Groceries
             when description ilike '%WALMART%'          then 'Groceries'
