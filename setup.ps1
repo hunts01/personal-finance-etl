@@ -2,6 +2,7 @@ Write-Host "Setting up personal-finance-etl..."
 
 python -3.11 -m venv .venv
 .venv\Scripts\activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 if (-Not (Test-Path .env)) {
