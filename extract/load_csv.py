@@ -230,7 +230,6 @@ def main() -> None:
     all_valid = True
 
     with duckdb.connect(DUCKDB_PATH) as conn:
-        conn.execute("USE personal_finance")
         for file_path, source_name, reader_fn, table_name in sources:
 
             if not file_path.exists():
