@@ -30,14 +30,14 @@ renamed as (
         -- Amount
         -- Bank CSVs store debits as negative numbers and credits as positive.
         -- We preserve the sign here and derive is_debit for convenience.
-        cast(amount as decimal(12, 2))              as amount,
+        cast(amount as double)              as amount,
 
         case
-            when cast(amount as decimal(12, 2)) < 0 then true
+            when cast(amount as double) < 0 then true
             else false
         end                                         as is_debit,
 
-        abs(cast(amount as decimal(12, 2)))         as absolute_amount,
+        abs(cast(amount as double))         as absolute_amount,
 
         -- Transaction type — normalise to lower case
         lower(trim(transaction_type))               as transaction_type,
