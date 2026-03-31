@@ -178,7 +178,7 @@ final as (
         case
             when k.category = 'Other' then true
             else false
-        end                                             as is_uncategorised
+        end::boolean as is_uncategorised
 
     from transactions t
     left join keyword_match k
