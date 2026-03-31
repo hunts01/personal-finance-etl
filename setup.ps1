@@ -1,6 +1,6 @@
 Write-Host "Setting up personal-finance-etl..."
 
-python -m venv .venv
+python -3.11 -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 
