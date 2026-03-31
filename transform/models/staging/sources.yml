@@ -1,0 +1,13 @@
+# transform/models/staging/sources.yml
+
+version: 2
+
+sources:
+  - name: raw
+    database: personal_finance
+    schema: main
+    tables:
+      - name: raw_bank_transactions
+        description: Raw bank transactions loaded by extract/load_csv.py
+      - name: raw_card_transactions
+        description: Raw card transactions loaded by extract/load_csv.py
