@@ -176,7 +176,7 @@ def validate(df: pd.DataFrame, source_name: str) -> bool:
 
 def load_to_duckdb(df: pd.DataFrame, table_name: str, conn: duckdb.DuckDBPyConnection) -> None:
 
-    full_table_name = f"raw.{table_name}"
+    full_table_name = f"personal_finance.raw.{table_name}"
 
     if FULL_REFRESH:
         conn.execute(f"DROP TABLE IF EXISTS {full_table_name}")
@@ -230,6 +230,7 @@ def main() -> None:
     all_valid = True
 
     with duckdb.connect(DUCKDB_PATH) as conn:
+        conn.execute("USE personal_finance")
         for file_path, source_name, reader_fn, table_name in sources:
 
             if not file_path.exists():
