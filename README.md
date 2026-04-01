@@ -10,6 +10,7 @@ Personal finance data flow from extract to visualization. This pipeline ingests 
 	•	Local analytical storage with DuckDB
 	•	Business intelligence with Power BI and DAX
 	•	CI/CD with GitHub Actions
-
+	•	! initial dev/testing in progress
+	
 ## License
 MIT
